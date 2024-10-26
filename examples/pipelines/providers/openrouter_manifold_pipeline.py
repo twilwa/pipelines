@@ -22,15 +22,20 @@ class Pipeline:
         )
         self.pipelines = self.get_openrouter_models()
 
-    async def on_startup(self):
-        print(f"on_startup:{__name__}")
-
-    async def on_shutdown(self):
-        print(f"on_shutdown:{__name__}")
-
-    async def on_valves_updated(self):
-        print(f"on_valves_updated:{__name__}")
-        self.pipelines = self.get_openrouter_models()
+    def format_model_id(self, model_id: str) -> str:
+        """
+        Format the model ID to match OpenRouter's expected format.
+        Removes any pipeline prefix and ensures correct provider format.
+        """
+        # Remove any pipeline prefix if present
+        if "openrouter_manifold_pipeline." in model_id:
+            model_id = model_id.replace("openrouter_manifold_pipeline.", "")
+        
+        # Handle filter/inlet or filter/outlet suffixes
+        if "/filter/" in model_id:
+            model_id = model_id.split("/filter/")[0]
+            
+        return model_id
 
     def get_openrouter_models(self):
         if self.valves.OPENROUTER_API_KEY:
@@ -49,6 +54,7 @@ class Pipeline:
                 return [
                     {
                         "id": model["id"],
+                        # Store the original model name without provider prefix
                         "name": model["id"].split("/")[-1],
                         "context_length": model.get("context_length"),
                         "pricing": model.get("pricing", {})
@@ -73,6 +79,9 @@ class Pipeline:
         print(messages)
         print(user_message)
 
+        # Format the model ID correctly
+        formatted_model_id = self.format_model_id(model_id)
+        
         headers = {
             "Authorization": f"Bearer {self.valves.OPENROUTER_API_KEY}",
             "HTTP-Referer": self.valves.SITE_URL,
@@ -81,7 +90,7 @@ class Pipeline:
         }
 
         # Clean up the payload
-        payload = {**body, "model": model_id}
+        payload = {**body, "model": formatted_model_id}
         for key in ["user", "chat_id", "title"]:
             payload.pop(key, None)
 
