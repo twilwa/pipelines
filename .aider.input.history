@@ -1,0 +1,65 @@
+
+# 2024-10-27 15:41:14.077647
++y
+
+# 2024-10-27 17:10:38.821358
++So, the openai manifold pipeline works when i replace the `OPENAI_API_KEY`with the openrouter url, but the openrouter pipeline doesn't work regardless -- the api calls are slightly different: INFO:     127.0.0.1:56024 - "POST /openrouter_manifold_pipeline.openai/chatgpt-4o-latest/filter/inlet HTTP/1.1" 404 Not Found
++
++INFO:     127.0.0.1:47504 - "POST /openai_manifold_pipeline.chatgpt-4o-latest/filter/inlet HTTP/1.1" 200 OK -- i think there's just some slight modifications that need to be made, I gave you the openai_manifold as a reference, but we only want to modify the openrouter_manifold
+
+# 2024-10-27 17:15:13.595830
++yes
+
+# 2024-10-27 17:16:01.035480
++/add pipelines/openrouter_manifold_pipeline.py
+
+# 2024-10-27 17:31:03.229647
++/drop ~/repos/pipelines
+
+# 2024-10-27 17:31:16.720489
++/add pipelines/openrouter_manifold_pipeline/valves.json
+
+# 2024-10-27 17:34:07.963752
++/add pipelines/openrouter_manifold_pipeline.py
+
+# 2024-10-27 17:40:03.381679
++/add examples/pipelines/providers/anthropic_manifold_pipeline.py
+
+# 2024-10-27 17:40:32.635091
++/add .aider.chat.history.md
+
+# 2024-10-27 17:43:35.389664
++/add examples/pipelines/providers/azure_jais_core42_pipeline.py
+
+# 2024-10-27 17:43:51.798929
++/add examples/pipelines/providers/openrouter_manifold_pipeline.py
+
+# 2024-10-27 17:46:03.027502
++/add .aider.chat.history.md
+
+# 2024-10-27 17:46:14.558091
++/drop pipelines/openrouter_manifold_pipeline/valves.json
+
+# 2024-10-27 17:46:52.431955
++/add .aider.chat.history.md
+
+# 2024-10-27 17:46:55.802783
++/drop examples/pipelines/providers/azure_jais_core42_pipeline.py
+
+# 2024-10-27 17:46:55.950535
++/add .aider.chat.history.md
+
+# 2024-10-27 19:15:22.812392
++/add examples/pipelines/providers/openrouter_manifold_pipeline.py
+
+# 2024-10-27 19:15:33.774801
++/add .aider.chat.history.md
+
+# 2024-10-27 19:15:37.640845
++/add pipelines/openrouter_manifold_pipeline.py
+
+# 2024-10-27 19:15:45.446013
++/add .aider.chat.history.md
+
+# 2024-10-27 19:21:10.674630
++/add examples/pipelines/providers/openrouter_manifold_pipeline.py
